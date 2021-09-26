@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.runner {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 5px;
+  padding: 5px;
+  width: calc(100% - 22px);
+  border: 1px black solid;
+}
+
+.runner-header, .runner-input, .runner-output {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-bottom: 5px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.terminal {
+  width: 100%;
+}
+
+.code-input {
+  width: 100%;
+}
+
+.script-dir {
+  flex: 1;
+}
+
+.sign {
+  font-size: 18px;
+}
+
+.script-dir {
+  font-size: 16px;
+}
+
+.button, .script-dir {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.first {
+  margin-left: 0;
+}
+
+.last {
+  margin-right: 0;
+}
+
+.unvisible {
+  display: none;
+}
+
+.btn-main {
+  font-size: 24px;
+  margin-left: 0;
+  margin-bottom: 10px;
+}
+
+.main-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 10px;
+  width: calc(100% - 20px);
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.container {
+  border: 1px solid gray;
+  margin: 0 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
