@@ -5,8 +5,10 @@ const config = require('../config');
 // 'node', ['/home/dima/proj/js/test-server/index.js']
 
 class Runner {
-  constructor (terminal) {
+  constructor (terminal, changeRunnerStatus, id) {
     this.terminal = terminal;
+    this.changeRunnerStatus = changeRunnerStatus;
+    this.id = id;
   }
 
   setPath(path) {
@@ -23,21 +25,32 @@ class Runner {
     return { code: codeParts[0], args: codeParts.splice(1) }
   }
 
+  processString(data) {
+    try {
+      return data.toString('utf8').replaceAll('\n', '\n\r').trim();
+    } catch (err) {
+      return '';
+    }
+  }
+
   start() {
     const { code, args } = this.splitCode();
     this.process = spawn(code, args, {
       cwd: this.path
     });
 
+    this.changeRunnerStatus(this.id, 'green');
+
     this.terminal.clear();
     this.terminal.writeln(`${config.username}@${config.hostname}:${this.path ?? config.homedir}$ `);
 
     this.process.stdout.on('data', (data) => {
-      // console.log(data.toString('utf8'));
-      this.terminal.writeln(data);
+      console.log(data);
+      this.terminal.writeln(this.processString(data));
     });
 
     this.process.on('close', (code) => {
+      this.changeRunnerStatus(this.id, 'red');
       this.terminal.writeln(`Stop with code: ${code}`);
     });
   }

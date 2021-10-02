@@ -9,15 +9,26 @@ const Runner = require('./comon/Runner');
 window.onload = function () {
 
   function runScript(index) {
-    const { runner, statusCircle } = runnerLinkList[index];
+    const { runner } = runnerLinkList[index];
     runner.start();
-    statusCircle.setAttribute('class', 'circle green');
+    // statusCircle.setAttribute('class', 'circle green');
+    changeRunnerStatus(index, 'green');
   }
 
   function stopScript(index) {
-    const { runner, statusCircle } = runnerLinkList[index];
+    const { runner } = runnerLinkList[index];
     runner.stop();
-    statusCircle.setAttribute('class', 'circle red');
+    // statusCircle.setAttribute('class', 'circle red');
+    changeRunnerStatus(index, 'red');
+  }
+
+  function changeRunnerStatus(index, status) {
+    const { statusCircle } = runnerLinkList[index];
+    if (status === 'green') {
+      statusCircle.setAttribute('class', 'circle green');
+    } else {
+      statusCircle.setAttribute('class', 'circle red');
+    }
   }
 
   function showHideTerminal(index) {
@@ -51,7 +62,7 @@ window.onload = function () {
 
   function addRunner() {
     console.log('add');
-    runnerLinkList.push(getRunner(runnerList, runnerLinkList.length));
+    runnerLinkList.push(getRunner(runnerList, runnerLinkList.length, changeRunnerStatus));
   }
 
   function saveData() {
@@ -94,7 +105,7 @@ window.onload = function () {
     }
   }
 
-  function getRunner(parentElement, id) {
+  function getRunner(parentElement, id, changeRunnerStatus) {
     const runnerDiv = createElement('div', {
       parent: parentElement,
       class: "runner" 
@@ -162,7 +173,7 @@ window.onload = function () {
     });
     const terminal = createTerminal(terminalElement);
   
-    const runner = new Runner(terminal);
+    const runner = new Runner(terminal, changeRunnerStatus, id);
     return {
       runnerDiv,
       ruunnerHeader,
@@ -199,5 +210,5 @@ window.onload = function () {
   const buttonSave = createElement('button', { parent: divleft, class: "button btn-main", onClick: saveData }, 'Save');
   const buttonLoad = createElement('button', { parent: divleft, class: "button btn-main", onClick: loadData }, 'Load');
 
-  runnerLinkList.push(getRunner(runnerList, 0));
+  runnerLinkList.push(getRunner(runnerList, 0, changeRunnerStatus));
 }
