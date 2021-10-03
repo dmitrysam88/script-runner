@@ -1,8 +1,6 @@
 const { spawn } = require('child_process');
 const config = require('../config');
-
-// let child = spawn('npm', ['--prefix','/home/dima/proj/js/test-server/','start']);
-// 'node', ['/home/dima/proj/js/test-server/index.js']
+const os = require('os');
 
 class Runner {
   constructor (terminal, changeRunnerStatus, id) {
@@ -36,7 +34,8 @@ class Runner {
   start() {
     const { code, args } = this.splitCode();
     this.process = spawn(code, args, {
-      cwd: this.path
+      cwd: this.path,
+      shell: true,
     });
 
     this.changeRunnerStatus(this.id, 'green');

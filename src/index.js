@@ -11,15 +11,11 @@ window.onload = function () {
   function runScript(index) {
     const { runner } = runnerLinkList[index];
     runner.start();
-    // statusCircle.setAttribute('class', 'circle green');
-    changeRunnerStatus(index, 'green');
   }
 
   function stopScript(index) {
     const { runner } = runnerLinkList[index];
     runner.stop();
-    // statusCircle.setAttribute('class', 'circle red');
-    changeRunnerStatus(index, 'red');
   }
 
   function changeRunnerStatus(index, status) {
@@ -94,7 +90,7 @@ window.onload = function () {
       const data = JSON.parse(fs.readFileSync(res, 'utf8'));
       clearRunnerList();
       data.forEach((el) => {
-        const id = runnerLinkList.push(getRunner(runnerList, runnerLinkList.length)) - 1;
+        const id = runnerLinkList.push(getRunner(runnerList, runnerLinkList.length, changeRunnerStatus)) - 1;
         runnerLinkList[id].inputPath.value = el.path;
         runnerLinkList[id].textareaCode.innerText = el.code;
         runnerLinkList[id].runner.setPath(el.path);
